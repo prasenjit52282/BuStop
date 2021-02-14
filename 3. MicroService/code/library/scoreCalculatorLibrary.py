@@ -135,18 +135,18 @@ def calculate_score(df):
         	Priority: Bus-Stop > Signal > Congestion > Turn. 
         	Adhoc is completely mutually exclusive.
         '''
-        if row["Prediction Is_Adhoc"] == "Adhoc":
+        if row["Prediction Is_Adhoc"] == 1:#"Adhoc":
             # Calculate score for adhoc
             list_scores.append(calculate_adhoc_score())
         else:
-	        if row["Prediction Is_Bus_stop"] == "Bus_stop":
+	        if row["Prediction Is_Bus_stop"] == 1:#"Bus_stop":
 	            # Calculate score for Bus_stop
 	            list_scores.append(calculate_bus_stop_score())
-	        elif row["Prediction Is_Signal"] == "Signal":
+	        elif row["Prediction Is_Signal"] == 1:#"Signal":
 	            # Calculate score for Signal
 	            list_scores.append(calculate_signal_score(start_time,
 	                                            end_time, last_end_time))
-	        elif row["Prediction Is_Congestion"] == "Congestion":
+	        elif row["Prediction Is_Congestion"] == 1:#"Congestion":
 	            # Calculate score for Congestion
 	            list_scores.append(calculate_congestion_score(start_time,
 	                                                end_time, last_end_time))
