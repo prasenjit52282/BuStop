@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quick Plotter</title>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js" integrity="sha512-rKFvwjvE4liWPlFnvH4ZhRDfNZ9FOpdkD/BU5gAIA3VS3vOQrQ5BjKgbO3kxebKhHdHcNUHLqxQYSoxee9UwgA==" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=geometry"></script>
+</head>
+<style type="text/css">
+	html, body, #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+    input {
+    	margin: 2px;
+    }
+</style>
+<body>
+<!-- The `multiple` attribute lets users select multiple files. -->
+<div style="margin:5px;">
+	<input type="file" id="file-selector" accept=".csv, .txt"><br>
+	<label for="latitude">Latitude: </label>
+	<input type="number" name="latitude" id="latitude"><br>
+	<label for="longitude">Longitude: </label>
+	<input type="number" name="longitude" id="longitude"><br>
+	<input type="button" name="add-marker" id="add-marker" value="Add Marker">
+</div>
+<div style="height:100%; width: 100%;">
+	<div id="map-canvas"></div>\
+</div>
+<script src="mapHelper.js" type="text/javascript"></script>
+<script src="index.js" type="text/javascript"></script>
+<!-- <script type="text/javascript">new google.maps.Marker({map}).setPosition(new google.maps.LatLng(23, 87));</script> -->
+</body>
+</html>
