@@ -1,0 +1,41 @@
+Is_Bus_stop,Is_Turn,Is_Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Bus_stop,Not Turn,Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Bus_stop,Turn,Not Signal
+Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
+Not Bus_stop,Turn,Not Signal
+Not Bus_stop,Not Turn,Not Signal
