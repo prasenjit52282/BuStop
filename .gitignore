@@ -4,3 +4,5 @@
 !/**/.gitkeep
 /**/__pycache__
 /5_New-Bus-MicroService-dev/Trails/*
+/*/node_modules/
+/*/bower_components/
