@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.12.6",
     "lit-element": "^3.0.1"
   },
   "devDependencies": {
