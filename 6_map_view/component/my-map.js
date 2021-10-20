@@ -1,18 +1,21 @@
 import {LitElement, html, css} from 'lit-element';
 import { Loader } from '@googlemaps/js-api-loader';
 import api_key from './api';
+import {data} from "../mock/bus_stops"
 
 export class MyMap extends LitElement {
   static get properties(){
     return { 
       lat: {type: Number},
-      long:{type: Number}
+      long:{type: Number},
+      busStop:{type: Array}
     }
   }
   constructor(){
     super();
     this.lat=23.52;
     this.long=87.31
+    this.busStop=data;
     this.map=null;
     this.loader = new Loader({
       apiKey: api_key,
@@ -42,6 +45,13 @@ export class MyMap extends LitElement {
         center:new google.maps.LatLng(this.lat,this.long),
         zoom:18,
         mapTypeId:google.maps.MapTypeId.ROADMAP
+      });
+      this.busStop.forEach(e=>{
+        new google.maps.Marker({
+          map:this.map,
+          position:new google.maps.LatLng(e.lat,e.long),
+          icon:"http://maps.google.com/mapfiles/ms/micons/blue.png"
+        })
       });
     });  
   }
