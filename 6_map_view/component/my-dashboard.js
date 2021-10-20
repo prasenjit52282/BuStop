@@ -5,12 +5,17 @@ import {data} from "../mock/bus_stops";
 
 export class MyDashboard extends LitElement {
 
+  constructor(){
+    super();
+    this.data=data
+  }
+
   render() {
     return html`
     <div>
       <button @click=${this.play}>Play</button>
       <my-map>
-            ${data.map(d=>{
+            ${this.data.map(d=>{
               return html`<my-marker lat=${d.lat} long=${d.long} type=${d.type}></my-marker>`;
             })}
         </my-map>
@@ -19,7 +24,23 @@ export class MyDashboard extends LitElement {
   }
 
   play(){
-    this.shadowRoot.querySelector("my-map").plot();
+    const myMap=this.shadowRoot.querySelector("my-map")
+    myMap.plot();
+    const route = new myMap.google.maps.Polyline({
+      path: [],
+      geodesic: true,
+      strokeColor: "#FF0000",
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+      editable: false,
+      map: myMap.map,
+    });
+
+    this.data.forEach((d,i)=>{
+      setTimeout(()=>{
+        route.getPath().push(new google.maps.LatLng(d.lat, d.long));
+      },i*1000);
+    })
   }
 }
 
