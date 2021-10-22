@@ -1,47 +1,41 @@
-import {LitElement, html, css} from 'lit-element';
+import { LitElement, html, css } from "lit-element";
 import "./map-elements/my-map";
 import "./map-elements/my-marker";
-import {data} from "../mock/bus_stops";
+import "./map-elements/my-polyline";
+import { data } from "../mock/bus_stops";
 
 export class MyDashboard extends LitElement {
-
-  constructor(){
+  constructor() {
     super();
-    this.data=data
+    this.data = data;
+    this.polyline_data = [];
   }
 
   render() {
+    console.log("render", this.polyline_data)
     return html`
-    <div>
-      <button @click=${this.play}>Play</button>
-      <my-map>
-            ${this.data.map(d=>{
-              return html`<my-marker lat=${d.lat} long=${d.long} type=${d.type}></my-marker>`;
-            })}
+      <div>
+        <button @click=${this.play}>Play</button>
+        <my-map>
+          ${this.data.map((d) => {
+            return html`<my-marker
+              name="${d.lat}_${d.long}"
+              lat=${d.lat}
+              long=${d.long}
+              type=${d.type}
+              for="normal"
+            ></my-marker>`;
+          })}
+
+          <my-polyline name="route" .points=${this.data}></my-polyline>
         </my-map>
-    </div>
+      </div>
     `;
   }
 
-  play(){
-    const myMap=this.shadowRoot.querySelector("my-map")
-    myMap.plot();
-    const route = new myMap.google.maps.Polyline({
-      path: [],
-      geodesic: true,
-      strokeColor: "#FF0000",
-      strokeOpacity: 1.0,
-      strokeWeight: 2,
-      editable: false,
-      map: myMap.map,
-    });
-
-    this.data.forEach((d,i)=>{
-      setTimeout(()=>{
-        route.getPath().push(new google.maps.LatLng(d.lat, d.long));
-      },i*1000);
-    })
+  play() {
+    alert("Play button is clicked. It does nothing for now.")
   }
 }
 
-customElements.define('my-dashboard', MyDashboard);
+customElements.define("my-dashboard", MyDashboard);
