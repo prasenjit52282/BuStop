@@ -2,13 +2,13 @@ import { LitElement, html, css } from "lit-element";
 import "./map-elements/my-map";
 import "./map-elements/my-marker";
 import "./map-elements/my-polyline";
-import { data } from "../mock/bus_stops";
+import obj from "../mock/bus_stops";
 
 export class MyDashboard extends LitElement {
   constructor() {
     super();
-    this.data = data;
-    this.polyline_data = [];
+    this.data = obj.gt_data;
+    this.polyline_data = obj.route_data;
   }
 
   render() {
@@ -27,7 +27,7 @@ export class MyDashboard extends LitElement {
             ></my-marker>`;
           })}
 
-          <my-polyline name="route" .points=${this.data}></my-polyline>
+          <my-polyline name="route" .points=${this.polyline_data}></my-polyline>
         </my-map>
       </div>
     `;

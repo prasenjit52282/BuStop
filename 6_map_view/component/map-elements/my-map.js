@@ -22,16 +22,24 @@ export class MyMap extends LitElement {
 
   constructor() {
     super();
-    this.lat = 23.52;
-    this.long = 87.31;
+    this.lat = 23.49471008;
+    this.long = 87.31699141;
     this.markers = {};
+    this.infoWindows = {};
     this.polyLines = {};
     this.map = null;
     this.loader = new Loader({
+      version: "weekly",
       apiKey: api_key,
       libraries: ["geometry"],
     });
     this.google = null;
+    this.iconMap = {
+      BUS: "component/assets/bus_stop.png",
+      SIG: "component/assets/signal.png",
+      TUR: "component/assets/turn.png",
+      ADH: "component/assets/adhoc_congestion.png",
+    };
   }
 
   connectedCallback() {
@@ -53,10 +61,11 @@ export class MyMap extends LitElement {
   firstUpdated() {
     let div = this.shadowRoot.querySelector("#map");
     this.loader.load().then((google) => {
+      console.log(google);
       this.google = google;
       this.map = new google.maps.Map(div, {
         center: new google.maps.LatLng(this.lat, this.long),
-        zoom: 18,
+        zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
       this.plot();
@@ -76,13 +85,25 @@ export class MyMap extends LitElement {
   plot() {
     // console.log("hi")
     // console.log(this.markers)
-    Object.keys(this.markers).forEach((key) => {
+    Object.keys(this.markers).forEach((key, i) => {
       // console.log(this.map,"bye")
       let m = this.markers[key];
       this.markers[key] = new this.google.maps.Marker({
         map: this.map,
         position: new this.google.maps.LatLng(m.lat, m.long),
         icon: new this.google.maps.MarkerImage(m.icon),
+      });
+
+      this.infoWindows[key] = new this.google.maps.InfoWindow({
+        content: `<p>${i}</p>`,
+      });
+
+      this.markers[key].addListener("click", () => {
+        this.infoWindows[key].open({
+          map: this.map,
+          anchor: this.markers[key],
+          shouldFocus: false,
+        });
       });
     });
 
@@ -100,12 +121,37 @@ export class MyMap extends LitElement {
         map: this.map,
       });
 
+      let waitTime = [];
+      let prevTime = 0;
+      points.forEach((p, i) => {
+        waitTime.push(prevTime);
+        prevTime += p.duration;
+      });
+
       points.forEach((p, i) => {
         setTimeout(() => {
+
+          Object.keys(this.infoWindows).forEach((k, idx) => {
+            if (idx > i) {
+              this.infoWindows[k].setContent(`<p>${i}_${p.lat}</p>`);
+            }
+          })
+
           this.polyLines[key]
             .getPath()
             .push(new this.google.maps.LatLng(p.lat, p.long));
-        }, i * 1000);
+
+          if (p.type !== "TRAIL") {
+            this.markers[key] = new this.google.maps.Marker({
+              map: this.map,
+              animation: this.google.maps.Animation.DROP,
+              title: p.type,
+              position: { lat: p.lat, lng: p.long },
+              // icon: new this.google.maps.MarkerImage(this.iconMap[p.type]),
+            });
+          }
+          console.log(waitTime[i]);
+        }, waitTime[i] * 1000);
       });
     });
   }
