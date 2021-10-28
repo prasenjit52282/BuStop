@@ -170,7 +170,7 @@ export class MyMap extends LitElement {
               animation: this.google.maps.Animation.DROP,
               title: p.type,
               position: { lat: p.lat, lng: p.long },
-              // icon: new this.google.maps.MarkerImage(this.iconMap[p.type]),
+              icon: new this.google.maps.MarkerImage(this.iconMap[p.type]),
             });
           }
           console.log(waitTime[i] * parseInt(1000 / this.playbackSpeed));
