@@ -102,10 +102,10 @@ export class MyPlayer extends LitElement {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
-                value="100"
+                value="50"
                 @click=${this.setPlaybackSpeed}
               />
-              <label class="form-check-label" for="inlineRadio2">10x</label>
+              <label class="form-check-label" for="inlineRadio2">5x</label>
             </div>
             <div class="form-check form-check-inline">
               <input
@@ -113,10 +113,21 @@ export class MyPlayer extends LitElement {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
+                value="100"
+                @click=${this.setPlaybackSpeed}
+              />
+              <label class="form-check-label" for="inlineRadio3">10x</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio4"
                 value="200"
                 @click=${this.setPlaybackSpeed}
               />
-              <label class="form-check-label" for="inlineRadio3">20x</label>
+              <label class="form-check-label" for="inlineRadio4">20x</label>
             </div>
           </div>
 

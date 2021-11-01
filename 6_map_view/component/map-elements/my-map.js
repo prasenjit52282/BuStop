@@ -52,6 +52,7 @@ export class MyMap extends LitElement {
       VEH: "component/assets/bus.png",
     };
     this.busMarker = null;
+    this.circle = null;
   }
 
   mapTitle(type) {
@@ -143,7 +144,7 @@ export class MyMap extends LitElement {
     Object.keys(this.polyLines).forEach((key) => {
       let points = this.polyLines[key].points;
 
-      this.polyLines[key] = new google.maps.Polyline({
+      this.polyLines[key] = new this.google.maps.Polyline({
         path: [],
         geodesic: true,
         strokeColor: "#6ca8bd",
@@ -154,8 +155,19 @@ export class MyMap extends LitElement {
       });
 
       this.busMarker = new this.google.maps.Marker({
+        title: "Bus",
         map: this.map,
         icon: new this.google.maps.MarkerImage(this.iconMap["VEH"]),
+      });
+
+      this.circle =  new this.google.maps.Circle({
+        strokeColor: "#6ca8bd",
+        strokeOpacity: 0.7,
+        strokeWeight: 2,
+        fillColor: "#6ca8bd",
+        fillOpacity: 0.2,
+        map: this.map,
+        radius: 30,
       });
 
       let waitTime = [];
@@ -170,6 +182,7 @@ export class MyMap extends LitElement {
           let currentPoint = new this.google.maps.LatLng(p.lat, p.long);
 
           this.polyLines[key].getPath().push(currentPoint);
+          this.circle.setCenter(currentPoint)
           this.busMarker.setPosition(currentPoint);
 
           this.map.panTo(currentPoint);
