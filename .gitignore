@@ -4,3 +4,7 @@
 !/**/.gitkeep
 /**/__pycache__
 /5_New-Bus-MicroService-dev/Trails/*
+/*/node_modules/
+/*/bower_components/
+/6_map_view/**/api.js
+/6_map_view/package-lock.json
