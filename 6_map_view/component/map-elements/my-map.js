@@ -33,17 +33,41 @@ export class MyMap extends LitElement {
     // this.timers = [];
     this.map = null;
     this.loader = new Loader({
-      version: "weekly",
+      version: "quarterly",
       apiKey: api_key,
       libraries: ["geometry"],
     });
     this.google = null;
     this.iconMap = {
       BUS: "component/assets/bus_stop.png",
+      BUS_SKIP: "component/assets/bus_stop_grey.png",
       SIG: "component/assets/signal.png",
       TUR: "component/assets/turn.png",
+      CONG: "component/assets/congestion.png",
       ADH: "component/assets/adhoc_congestion.png",
+      SIG_CONG: "component/assets/sig_cong.png",
+      TUR_CONG: "component/assets/tur_cong.png",
+      TUR_SIG: "component/assets/tur_sig.png",
+      TUR_SIG_CONG: "component/assets/tur_sig_cong.png",
+      VEH: "component/assets/bus.png",
     };
+    this.busMarker = null;
+  }
+
+  mapTitle(type) {
+    const titleMap = {
+      BUS: "Bus Stop",
+      BUS_SKIP: "Skipped Bus Stop",
+      SIG: "Signal",
+      TUR: "Turn",
+      CONG: "Congestion",
+      ADH: "Adhoc",
+      SIG_CONG: "Signal + Congestion",
+      TUR_CONG: "Turn + Congestion",
+      TUR_SIG: "Turn + Signal",
+      TUR_SIG_CONG: "Turn + Signal + Congestion",
+    };
+    return titleMap[type];
   }
 
   connectedCallback() {
@@ -67,11 +91,10 @@ export class MyMap extends LitElement {
   firstUpdated() {
     let div = this.shadowRoot.querySelector("#map");
     this.loader.load().then((google) => {
-      console.log(google);
       this.google = google;
       this.map = new this.google.maps.Map(div, {
         center: new this.google.maps.LatLng(this.lat, this.long),
-        zoom: 16,
+        zoom: 14,
         mapId: map_id,
         mapTypeId: this.google.maps.MapTypeId.ROADMAP,
       });
@@ -80,8 +103,6 @@ export class MyMap extends LitElement {
   }
 
   placeMarker(event) {
-    // console.log("place")
-    // console.log(event.data)
     this.markers[event.data.name] = event.data;
   }
 
@@ -94,47 +115,47 @@ export class MyMap extends LitElement {
   }
 
   plot() {
-    // console.log("hi")
-    // console.log(this.markers)
     Object.keys(this.markers).forEach((key, i) => {
-      // console.log(this.map,"bye")
+      // console.log(key);
       let m = this.markers[key];
       this.markers[key] = new this.google.maps.Marker({
+        title: "Bus Stop",
         map: this.map,
         position: new this.google.maps.LatLng(m.lat, m.long),
         icon: new this.google.maps.MarkerImage(m.icon),
       });
+      this.markers[key]["eta"] = m.eta;
 
       this.infoWindows[key] = new this.google.maps.InfoWindow({
         content: this.clocks[key],
-      });
-      this.infoWindows[key].open({
-        map: this.map,
-        anchor: this.markers[key],
-        shouldFocus: false,
+        position: new this.google.maps.LatLng(m.lat, m.long),
       });
 
       this.markers[key].addListener("click", () => {
-        // todo remove
+        this.infoWindows[key].open({
+          map: this.map,
+          // anchor: this.markers[key],
+          shouldFocus: false,
+        });
       });
     });
 
-    // let firstMarker = Object.values(this.markers)[0];
-    // console.log("marker", firstMarker)
-    // this.map.panTo(new this.google.maps.LatLng(firstMarker.position.lat(), firstMarker.position.lng()));
-
-    console.log(this.polyLines);
     Object.keys(this.polyLines).forEach((key) => {
       let points = this.polyLines[key].points;
 
       this.polyLines[key] = new google.maps.Polyline({
         path: [],
         geodesic: true,
-        strokeColor: "#FF0000",
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
+        strokeColor: "#6ca8bd",
+        strokeOpacity: 0.7,
+        strokeWeight: 4,
         editable: false,
         map: this.map,
+      });
+
+      this.busMarker = new this.google.maps.Marker({
+        map: this.map,
+        icon: new this.google.maps.MarkerImage(this.iconMap["VEH"]),
       });
 
       let waitTime = [];
@@ -145,37 +166,54 @@ export class MyMap extends LitElement {
       });
 
       points.forEach((p, i) => {
-        // this.timers.push(
         setTimeout(() => {
-          Object.keys(this.infoWindows).forEach((k, idx) => {
-            if (idx >= i) {
-              // this.infoWindows[k].setContent(`<p>${i}_${p.lat}</p>`);
-              this.clocks[k].setTime(
-                `${parseInt(Math.random() * 24)}:${parseInt(
-                  Math.random() * 60
-                )}:${parseInt(Math.random() * 60)}`
-              );
-            }
-          });
-
           let currentPoint = new this.google.maps.LatLng(p.lat, p.long);
 
           this.polyLines[key].getPath().push(currentPoint);
+          this.busMarker.setPosition(currentPoint);
 
           this.map.panTo(currentPoint);
 
-          if (p.type !== "TRAIL") {
+          if (p.type === "BUS") {
+            let id = p.id;
+            let skipped = p.skip;
+
+            if (skipped) {
+              this.markers[id].setIcon(this.iconMap["BUS_SKIP"]);
+              this.markers[id].setTitle(this.mapTitle("BUS_SKIP"));
+            }
+
+            this.infoWindows[id].close();
+
+            let currentIdNmbr = parseInt(id.split("BS")[1]);
+
+            Object.keys(this.infoWindows).forEach((k, idx) => {
+              if (idx >= currentIdNmbr) {
+                try {
+                  this.clocks[k].setTime(this.markers[id].eta[parseInt(idx)]);
+                } catch (error) {
+                  // pass
+                }
+              }
+            });
+
+            let nextId = parseInt(id.split("BS")[1]) + 1;
+            if (nextId < 28) {
+              this.infoWindows[`BS${nextId}`].open({
+                map: this.map,
+                shouldFocus: false,
+              });
+            }
+          } else if (p.type !== "TRAIL" && p.type !== "BUS") {
             this.markers[key] = new this.google.maps.Marker({
               map: this.map,
-              animation: this.google.maps.Animation.DROP,
-              title: p.type,
+              // animation: this.google.maps.Animation.DROP,
+              title: this.mapTitle(p.type),
               position: { lat: p.lat, lng: p.long },
               icon: new this.google.maps.MarkerImage(this.iconMap[p.type]),
             });
           }
-          console.log(waitTime[i] * parseInt(1000 / this.playbackSpeed));
         }, waitTime[i] * parseInt(1000 / this.playbackSpeed));
-        // );
       });
     });
   }

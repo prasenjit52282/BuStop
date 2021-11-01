@@ -7,6 +7,7 @@ export class MyMarker extends LitElement {
       name: { type: String },
       lat: { type: Number },
       long: { type: Number },
+      eta: {type: Array},
       type: { type: String },
     };
   }
@@ -17,10 +18,12 @@ export class MyMarker extends LitElement {
     this.long = 87.31;
     this.type = "BUS";
     this.name = `${this.lat}_${this.long}`;
+    this.eta = ["test"];
     this.iconMap = {
       BUS: "component/assets/bus_stop.png",
       SIG: "component/assets/signal.png",
       TUR: "component/assets/turn.png",
+      CONG: "component/assets/congestion.png",
       ADH: "component/assets/adhoc_congestion.png",
     };
   }
@@ -45,6 +48,7 @@ export class MyMarker extends LitElement {
           name: this.name,
           lat: this.lat,
           long: this.long,
+          eta: this.eta,
           icon: this.mapTypeToIcon(this.type),
         }
       )
