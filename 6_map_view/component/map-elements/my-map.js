@@ -95,7 +95,7 @@ export class MyMap extends LitElement {
       this.google = google;
       this.map = new this.google.maps.Map(div, {
         center: new this.google.maps.LatLng(this.lat, this.long),
-        zoom: 17,
+        zoom: 16,
         mapId: map_id,
         mapTypeId: this.google.maps.MapTypeId.ROADMAP,
       });
