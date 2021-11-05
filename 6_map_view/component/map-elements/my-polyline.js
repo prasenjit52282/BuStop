@@ -27,7 +27,6 @@ export class MyPloyLine extends LitElement {
   }
 
   shouldUpdate(changedProperties) {
-    console.log(changedProperties)
     return true;
   }
 

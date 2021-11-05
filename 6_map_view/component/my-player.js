@@ -34,7 +34,7 @@ export class MyPlayer extends LitElement {
       .form-check-input:checked {
         background-color: #565555;
         border-color: #565555;
-    }
+      }
     `;
   }
 
@@ -44,6 +44,13 @@ export class MyPlayer extends LitElement {
     this.polyline_data = null;
     this.playbackSpeed = 1;
     this.content = true;
+    this.speedControlSettings = {
+      "1x": 1,
+      "2x": 20,
+      "5x": 50,
+      "10x": 100,
+      "20x": 200,
+    };
   }
 
   renderDashboard() {
@@ -73,62 +80,36 @@ export class MyPlayer extends LitElement {
       <div class="no-padding no-margin bg-lightgray text">
         <nav class="nav">
           <div class="mt-3 ms-3">
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio0"
-                value="1"
-                checked
-                @click=${this.setPlaybackSpeed}
-              />
-              <label class="form-check-label" for="inlineRadio1">1x</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                value="20"
-                @click=${this.setPlaybackSpeed}
-              />
-              <label class="form-check-label" for="inlineRadio1">2x</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio2"
-                value="50"
-                @click=${this.setPlaybackSpeed}
-              />
-              <label class="form-check-label" for="inlineRadio2">5x</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="100"
-                @click=${this.setPlaybackSpeed}
-              />
-              <label class="form-check-label" for="inlineRadio3">10x</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio4"
-                value="200"
-                @click=${this.setPlaybackSpeed}
-              />
-              <label class="form-check-label" for="inlineRadio4">20x</label>
-            </div>
+            ${Object.keys(this.speedControlSettings).map((key, i) => {
+              return i === 0
+                ? html`<div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio${i}"
+                      value="${this.speedControlSettings[key]}"
+                      checked
+                      @click=${this.setPlaybackSpeed}
+                    />
+                    <label class="form-check-label" for="inlineRadio${i}"
+                      >${key}</label
+                    >
+                  </div>`
+                : html`<div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio${i}"
+                      value="${this.speedControlSettings[key]}"
+                      @click=${this.setPlaybackSpeed}
+                    />
+                    <label class="form-check-label" for="inlineRadio${i}"
+                      >${key}</label
+                    >
+                  </div>`;
+            })}
           </div>
 
           <button
