@@ -35,6 +35,10 @@ export class MyPlayer extends LitElement {
         background-color: #565555;
         border-color: #565555;
       }
+
+      .back-btn {
+        max-width:50%;
+      }
     `;
   }
 
@@ -42,7 +46,7 @@ export class MyPlayer extends LitElement {
     super();
     this.gt_data = null;
     this.polyline_data = null;
-    this.playbackSpeed = 1;
+    this.playbackSpeed = 50;
     this.content = true;
     this.speedControlSettings = {
       "1x": 1,
@@ -57,8 +61,8 @@ export class MyPlayer extends LitElement {
     return html`${this.gt_data && this.polyline_data
       ? html`<my-dashboard
           playbackSpeed=${this.playbackSpeed}
-          gt_data=${this.gt_data}
-          polyline_data=${this.polyline_data}
+          .gt_data=${this.gt_data}
+          .polyline_data=${this.polyline_data}
         ></my-dashboard>`
       : html`<my-dashboard
           playbackSpeed=${this.playbackSpeed}
@@ -79,9 +83,10 @@ export class MyPlayer extends LitElement {
       ></script>
       <div class="no-padding no-margin bg-lightgray text">
         <nav class="nav">
+          <a class="ms-3 mt-2" href="/"><img class="back-btn" src="component/assets/previous.png"/></a>
           <div class="mt-3 ms-3">
             ${Object.keys(this.speedControlSettings).map((key, i) => {
-              return i === 0
+              return i === 2
                 ? html`<div class="form-check form-check-inline">
                     <input
                       class="form-check-input"
@@ -117,7 +122,7 @@ export class MyPlayer extends LitElement {
             class="btn btn-dark ms-auto me-3"
             @click=${this.reload}
           >
-            Reload
+            Update
           </button>
         </nav>
       </div>

@@ -1,5 +1,6 @@
 import { LitElement, html, css, nothing, _$LE } from "lit-element";
 import "./my-dashboard";
+import "./my-player";
 
 export class MyApp extends LitElement {
   static get properties() {
@@ -51,10 +52,10 @@ export class MyApp extends LitElement {
           <div class="card-body p-0">
             <div class="row justify-content-center">
               <my-player
-                gt_data=${this.playerData.gt}
-                polyline_data=${this.playerData.route}
+                .gt_data=${this.playerData.gt}
+                .polyline_data=${this.playerData.route}
                 content="true"
-                playbackSpeed="1"
+                .playbackSpeed="5"
               ></my-player>
             </div>
             <!-- card body row end -->

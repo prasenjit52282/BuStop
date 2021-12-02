@@ -3,8 +3,6 @@ import "./map-elements/my-map";
 import "./map-elements/my-marker";
 import "./map-elements/my-polyline";
 import "./map-elements/my-clock-element";
-// import obj from "../mock/bus_stops";
-import obj  from "../mock/sample";
 
 export class MyDashboard extends LitElement {
   static get properties() {
@@ -17,15 +15,15 @@ export class MyDashboard extends LitElement {
 
   constructor() {
     super();
-    this.gt_data = obj.gt;
-    this.polyline_data = obj.route;
+    this.gt_data = null;
+    this.polyline_data = null;
     this.playbackSpeed = 1;
   }
 
   render() {
     return html`
       <div>
-        <my-map playbackSpeed=${this.playbackSpeed}>
+        <my-map .playbackSpeed=${this.playbackSpeed}>
           ${this.gt_data.map((d, i) => {
             return html`<my-marker
                 name=${d.id}
