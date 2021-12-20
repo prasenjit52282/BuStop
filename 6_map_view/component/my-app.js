@@ -46,6 +46,23 @@ export class MyApp extends LitElement {
       <!-- contianer end -->`;
   }
 
+  legendTemplate() {
+    return html`
+      <div class="row justify-content-center fst-italic mt-2">
+        <div class="col text-center">
+          <img src="component/assets/bus_stop.png" /><span class="ms-1 me-4">Bus-Stop</span>
+          <img src="component/assets/bus_stop_grey.png" /><span class="ms-1 me-4"
+            >Skipped Bus-Stop</span
+          >
+          <img src="component/assets/signal.png" /><span class="ms-1 me-4">Signal</span>
+          <img src="component/assets/turn.png" /><span class="ms-1 me-4">Turn</span>
+          <img src="component/assets/adhoc_congestion.png" /><span class="ms-1 me-4">Ad-hoc</span>
+          <img src="component/assets/congestion.png" /><span class="ms-1 me-4">Congestion</span>
+        </div>
+      </div>
+    `;
+  }
+
   renderPlayer() {
     return html`<div class="col" style="width: 70%">
         <div class="card shadow rounded-3">
@@ -63,6 +80,12 @@ export class MyApp extends LitElement {
           <!-- card body end -->
         </div>
         <!-- card end -->
+
+        <div class="row m-3">
+          <div class="row justify-content-center">${this.legendTemplate()}</div>
+          <!-- row justify end -->
+        </div>
+        <!-- row m-3 end -->
       </div>
       <!-- col end -->`;
   }
