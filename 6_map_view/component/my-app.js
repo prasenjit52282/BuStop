@@ -50,14 +50,14 @@ export class MyApp extends LitElement {
     return html`
       <div class="row justify-content-center fst-italic mt-2">
         <div class="col text-center">
-          <img src="component/assets/bus_stop.png" /><span class="ms-1 me-4">Bus-Stop</span>
-          <img src="component/assets/bus_stop_grey.png" /><span class="ms-1 me-4"
+          <img src="component/assets/bus_stop.png" width=32px height=32px/><span class="ms-1 me-4">Bus-Stop</span>
+          <img src="component/assets/bus_stop_grey.png" width=32px height=32px/><span class="ms-1 me-4"
             >Skipped Bus-Stop</span
           >
-          <img src="component/assets/signal.png" /><span class="ms-1 me-4">Signal</span>
-          <img src="component/assets/turn.png" /><span class="ms-1 me-4">Turn</span>
-          <img src="component/assets/adhoc_congestion.png" /><span class="ms-1 me-4">Ad-hoc</span>
-          <img src="component/assets/congestion.png" /><span class="ms-1 me-4">Congestion</span>
+          <img src="component/assets/signal.png" width=32px height=32px/><span class="ms-1 me-4">Signal</span>
+          <img src="component/assets/turn.png" width=32px height=32px/><span class="ms-1 me-4">Turn</span>
+          <img src="component/assets/adhoc_congestion.png" width=32px height=32px/><span class="ms-1 me-4">Ad-hoc</span>
+          <img src="component/assets/congestion.png" width=32px height=32px/><span class="ms-1 me-4">Congestion</span>
         </div>
       </div>
     `;
