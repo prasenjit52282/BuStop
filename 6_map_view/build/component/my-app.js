@@ -100,7 +100,7 @@ console.warn("The main 'lit-element' module entrypoint is deprecated. Please upd
       ></script>
       <div class="no-padding no-margin bg-lightgray text">
         <nav class="nav">
-          <a class="ms-3 mt-2" href="/"><img class="back-btn" src="component/assets/previous.png"/></a>
+          <a class="ms-3 mt-2" href=""><img class="back-btn" src="component/assets/previous.png"/></a>
           <div class="mt-3 ms-3">
             ${Object.keys(this.speedControlSettings).map(((t,e)=>2===e?U`<div class="form-check form-check-inline">
                     <input
