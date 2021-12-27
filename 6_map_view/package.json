@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "es-dev-server --app-index index.html --node-resolve --watch --open",
-    "build": "rimraf build-modern && rollup -c rollup-build.js"
+    "serve": "es-dev-server --app-index index.html --node-resolve --watch --open --port 5000",
+    "build": "rimraf build && rollup -c rollup-build.js"
   },
   "author": "",
   "license": "ISC",
