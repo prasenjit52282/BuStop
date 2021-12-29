@@ -48,16 +48,16 @@ export class MyApp extends LitElement {
 
   legendTemplate() {
     return html`
-      <div class="row justify-content-center fst-italic mt-2">
+      <div class="row justify-content-center fw-bold fs-4 mt-1">
         <div class="col text-center">
-          <img src="component/assets/bus_stop.png" width=32px height=32px/><span class="ms-1 me-4">Bus-Stop</span>
-          <img src="component/assets/bus_stop_grey.png" width=32px height=32px/><span class="ms-1 me-4"
-            >Skipped Bus-Stop</span
+          <img src="component/assets/bus_stop.png" width=48px height=48px/><span class="ms-1 me-2">Bus stop</span>
+          <img src="component/assets/bus_stop_grey.png" width=48px height=48px/><span class="ms-1 me-2"
+            >Skipped Bus stop</span
           >
-          <img src="component/assets/signal.png" width=32px height=32px/><span class="ms-1 me-4">Signal</span>
-          <img src="component/assets/turn.png" width=32px height=32px/><span class="ms-1 me-4">Turn</span>
-          <img src="component/assets/adhoc_congestion.png" width=32px height=32px/><span class="ms-1 me-4">Ad-hoc</span>
-          <img src="component/assets/congestion.png" width=32px height=32px/><span class="ms-1 me-4">Congestion</span>
+          <img src="component/assets/signal.png" width=48px height=48px/><span class="ms-1 me-2">Signal</span>
+          <img src="component/assets/turn.png" width=48px height=48px/><span class="ms-1 me-2">Turn</span>
+          <img src="component/assets/adhoc_congestion.png" width=48px height=48px/><span class="ms-1 me-2">Ad-hoc</span>
+          <img src="component/assets/congestion.png" width=48px height=48px/><span class="ms-1 me-2">Congestion</span>
         </div>
       </div>
     `;
@@ -65,7 +65,7 @@ export class MyApp extends LitElement {
 
   renderPlayer() {
     return html`<div class="col" style="width: 70%">
-        <div class="card shadow rounded-3">
+        <div class="card shadow-none rounded-3">
           <div class="card-body p-0">
             <div class="row justify-content-center">
               <my-player

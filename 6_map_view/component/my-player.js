@@ -46,7 +46,7 @@ export class MyPlayer extends LitElement {
     super();
     this.gt_data = null;
     this.polyline_data = null;
-    this.playbackSpeed = 50;
+    this.playbackSpeed = 200;
     this.content = true;
     this.speedControlSettings = {
       "1x": 1,
@@ -69,8 +69,9 @@ export class MyPlayer extends LitElement {
         ></my-dashboard>`}`;
   }
 
-  render() {
-    return html` <link
+  renderControls(){
+    return html` 
+    <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -81,51 +82,58 @@ export class MyPlayer extends LitElement {
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"
       ></script>
-      <div class="no-padding no-margin bg-lightgray text">
-        <nav class="nav">
-          <a class="ms-3 mt-2" href="/"><img class="back-btn" src="component/assets/previous.png"/></a>
-          <div class="mt-3 ms-3">
-            ${Object.keys(this.speedControlSettings).map((key, i) => {
-              return i === 2
-                ? html`<div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio${i}"
-                      value="${this.speedControlSettings[key]}"
-                      checked
-                      @click=${this.setPlaybackSpeed}
-                    />
-                    <label class="form-check-label" for="inlineRadio${i}"
-                      >${key}</label
-                    >
-                  </div>`
-                : html`<div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio${i}"
-                      value="${this.speedControlSettings[key]}"
-                      @click=${this.setPlaybackSpeed}
-                    />
-                    <label class="form-check-label" for="inlineRadio${i}"
-                      >${key}</label
-                    >
-                  </div>`;
-            })}
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-dark ms-auto me-3"
-            @click=${this.reload}
-          >
-            Update
-          </button>
-        </nav>
+  <div class="no-padding no-margin bg-lightgray text">
+    <nav class="nav">
+      <a class="ms-3 mt-2" href="/"><img class="back-btn" src="component/assets/previous.png"/></a>
+      <div class="mt-3 ms-3">
+        ${Object.keys(this.speedControlSettings).map((key, i) => {
+          return i === 2
+            ? html`<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio${i}"
+                  value="${this.speedControlSettings[key]}"
+                  checked
+                  @click=${this.setPlaybackSpeed}
+                />
+                <label class="form-check-label" for="inlineRadio${i}"
+                  >${key}</label
+                >
+              </div>`
+            : html`<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio${i}"
+                  value="${this.speedControlSettings[key]}"
+                  @click=${this.setPlaybackSpeed}
+                />
+                <label class="form-check-label" for="inlineRadio${i}"
+                  >${key}</label
+                >
+              </div>`;
+        })}
       </div>
+
+      <button
+        type="button"
+        class="btn btn-dark ms-auto me-3"
+        @click=${this.reload}
+      >
+        Update
+      </button>
+    </nav>
+  </div>`
+  }
+
+  render() {
+    // return html`
+    //   ${this.renderControls()}
+    //   ${this.content ? this.renderDashboard() : nothing}`;
+    return html`
       ${this.content ? this.renderDashboard() : nothing}`;
   }
 
