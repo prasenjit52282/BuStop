@@ -32,9 +32,12 @@ def time_zone_cal(s):
         time_zone='Evening'
     return time_zone
 
-def new_Processing_before_journal(location):
+def new_Processing_before_journal(location=None,dataframe=None):
     #reading Data
-    df=pd.read_csv(location)
+    if location is not None:
+        df=pd.read_csv(location)
+    else:
+        df=dataframe.copy()
 
     #Normalizing edge values with edge distance
     df['next_hop_distance']=cumulative_distance(df[['lat','long']].values)
